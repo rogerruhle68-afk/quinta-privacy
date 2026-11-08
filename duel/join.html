@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a Quinta Duel game</title>
+<style>
+  :root { color-scheme: dark; }
+  body { font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 30rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; text-align: center;
+         background: #0e3d2e; color: #fff; }
+  h1 { font-size: 1.8rem; margin: .5rem 0; }
+  .code { display: inline-block; font: 700 2.4rem/1 ui-monospace, Menlo, monospace; letter-spacing: .1em;
+          color: #d4af37; background: rgba(0,0,0,.25); border-radius: 12px; padding: .8rem 1.4rem; margin: 1rem 0; }
+  .button { display: block; margin: .8rem auto; max-width: 18rem; padding: .9rem 1rem; border-radius: 999px;
+            font-weight: 600; text-decoration: none; background: #d4af37; color: #000; }
+  .button.quiet { background: rgba(255,255,255,.15); color: #fff; }
+  .step { opacity: .85; }
+  a { color: #d4af37; }
+</style>
+</head>
+<body>
+<h1>You're invited to Quinta Duel!</h1>
+<p class="step">A friend wants to play Quinta with you. Your invite code is:</p>
+<div class="code" id="code">——————</div>
+<a class="button" id="open" href="#">Open in Quinta Duel</a>
+<p class="step">Don't have the app yet? Get it free, then open it and tap <strong>Enter a Code</strong>.</p>
+<!-- TODO: real store links once each app is live -->
+<a class="button quiet" href="https://apps.apple.com/">Download for iPhone</a>
+<a class="button quiet" href="https://play.google.com/store/apps/details?id=com.rogerruhle.quintaduel">Download for Android</a>
+<p class="step"><a href="support.html">Help</a> · <a href="./">Privacy</a></p>
+<script>
+  // The code comes from ?c=ABC123. Shown as text only (never as HTML).
+  var raw = new URLSearchParams(location.search).get("c") || "";
+  var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+  if (code.length === 6) {
+    document.getElementById("code").textContent = code.slice(0, 3) + " " + code.slice(3);
+    document.getElementById("open").href = "quintaduel://join?c=" + code;
+  } else {
+    document.getElementById("code").textContent = "No code";
+    document.getElementById("open").style.display = "none";
+  }
+</script>
+</body>
+</html>
